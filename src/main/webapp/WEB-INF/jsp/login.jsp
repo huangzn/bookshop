@@ -8,6 +8,7 @@
     <title>校园二手书交易平台</title>
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/reset.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/login.css">
+
 </head>
 <body>
     <div id="login-container">
@@ -33,12 +34,11 @@
                 $('#errorInfo').html("学号或密码不能为空！");
                 return false;
             }
-
             var user_ = {"studentid": studentid_, "password": password_};
             var jsonData = JSON.stringify(user_);
             $.ajax({
                 type: "POST",
-                url: "/users/sessions",
+                url: "users/sessions",
                 async: false,
                 dataType: "json",
                 contentType: "application/json;charset=UTF-8",
@@ -52,7 +52,7 @@
                         $('#errorInfo').html(result.message);
                     }
                 }
-            });
+            })
         });
     })
 </script>

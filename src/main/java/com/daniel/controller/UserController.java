@@ -6,6 +6,7 @@ import com.daniel.pojo.User;
 import com.daniel.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,14 +18,20 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
 
+	
     @Autowired
     private UserService userService;
+    
+    
 
     // 日志文件
     private static final Logger log = Logger.getLogger(UserController.class);
 
     @RequestMapping("")
     public ModelAndView login() {
+    		
+    	
+    	log.info("跳转页面");
         return new ModelAndView("login");
     }
 
@@ -39,6 +46,7 @@ public class UserController {
     public Result checkLogin(@RequestBody User user, HttpServletRequest request) {
         // userService验证是否登录成功
         boolean flag = userService.checkUser(user);
+        
         log.info("request: user/login , user: " + user.toString());
         if (flag) {
             Map data = new HashMap();
@@ -60,5 +68,11 @@ public class UserController {
     public ModelAndView logout(HttpServletRequest request) {
         request.getSession().removeAttribute("user");
         return new ModelAndView("login");
+    }
+    
+    
+    @RequestMapping("/home.do")
+    public ModelAndView home(HttpServletRequest request) {
+        return new ModelAndView("home");
     }
 }
